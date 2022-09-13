@@ -1,6 +1,6 @@
 {
   "name": "@maskeynihal/mailer",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Mail service provider",
   "main": "dist/index.js",
   "author": "maskeynihal",
