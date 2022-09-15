@@ -13,6 +13,7 @@ export interface IMailNode {
   subject: string;
   body?: string;
   bcc?: Array<string>;
+  cc?: Array<string>;
 }
 
 class Mail {
@@ -28,6 +29,16 @@ class Mail {
     }
 
     this.mailNode.to = tos;
+
+    return this;
+  }
+
+  cc(ccs: Array<string> | string) {
+    if (typeof ccs === 'string') {
+      ccs = [ccs];
+    }
+
+    this.mailNode.cc = ccs;
 
     return this;
   }

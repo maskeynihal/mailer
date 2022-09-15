@@ -12,7 +12,8 @@ export const createPayload = (payload: IMailNode) => {
     toEmails: payload.to,
     bcc: payload.bcc,
     from: payload.from,
-    subject: payload.subject
+    subject: payload.subject,
+    ccEmails: payload.cc
   };
 };
 
