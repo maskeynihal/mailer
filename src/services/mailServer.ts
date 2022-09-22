@@ -11,7 +11,9 @@ export const createPayload = (payload: IMailNode) => {
     message: payload.body,
     toEmails: payload.to,
     bcc: payload.bcc,
-    from: payload.from,
+    from: payload.fromName
+      ? `${payload.fromName} <${payload.fromAddress}>`
+      : payload.fromAddress,
     subject: payload.subject,
     ccEmails: payload.cc
   };

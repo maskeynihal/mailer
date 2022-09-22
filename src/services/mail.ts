@@ -9,7 +9,8 @@ import { sendMail } from './mailServer';
 
 export interface IMailNode {
   to: Array<string>;
-  from?: string;
+  fromAddress?: string;
+  fromName?: string;
   subject: string;
   body?: string;
   bcc?: Array<string>;
@@ -53,8 +54,9 @@ class Mail {
     return this;
   }
 
-  from(from: string) {
-    this.mailNode.from = from;
+  from(fromAddress: string, fromName?: string) {
+    this.mailNode.fromAddress = fromAddress;
+    this.mailNode.fromName = fromName;
 
     return this;
   }
@@ -89,8 +91,8 @@ class Mail {
       throw new Error(en.error.mail.subject);
     }
 
-    if (!this.mailNode.from) {
-      this.mailNode.from = mailConfig.from;
+    if (!this.mailNode.fromAddress) {
+      this.from(mailConfig.from, mailConfig.name);
     }
 
     return sendMail(this.mailNode);
