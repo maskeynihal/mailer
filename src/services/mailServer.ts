@@ -3,6 +3,7 @@ import axios from 'axios';
 import mailConfig from '../config/mail.config';
 
 import type { IMailNode } from './mail';
+import getSecretValue from '../config/secret.config';
 
 const http = axios.create();
 
@@ -20,9 +21,12 @@ export const createPayload = (payload: IMailNode) => {
 };
 
 export const sendMail = async (payload: IMailNode) => {
+  const secretValue = await getSecretValue();
+
   return await http.post(mailConfig.mailServer.host, createPayload(payload), {
     headers: {
-      'x-api-key': mailConfig.mailServer.password
+      'x-api-key':
+        secretValue['MAIL_SERVER_PASSWORD'] || mailConfig.mailServer.password
     }
   });
 };

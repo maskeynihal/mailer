@@ -1,4 +1,6 @@
 export default {
+  awsRegion: process.env.AWS_REGION,
+  secretManagerName: process.env.SM_NAME,
   from: process.env.MAIL_FROM_ADDRESS,
   name: process.env.MAIL_FROM_NAME,
   mailServer: {
