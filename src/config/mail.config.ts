@@ -1,8 +1,25 @@
-export default {
-  from: process.env.MAIL_FROM_ADDRESS,
-  name: process.env.MAIL_FROM_NAME,
-  mailServer: {
-    host: process.env.MAIL_SERVER_HOST || '',
-    password: process.env.MAIL_PASSWORD || ''
-  }
+import getSecret from '../strategies/secretStrategies/secretStrategy';
+
+const getMailConfig = async () => {
+  const keys = [
+    'MAIL_FROM_ADDRESS',
+    'MAIL_FROM_NAME',
+    'MAIL_SERVER_HOST',
+    'MAIL_PASSWORD'
+  ];
+
+  const [from, name, host, password] = await Promise.all(keys.map(getSecret));
+
+  const mailConfig = {
+    from,
+    name,
+    mailServer: {
+      host,
+      password
+    }
+  };
+
+  return mailConfig;
 };
+
+export default getMailConfig;

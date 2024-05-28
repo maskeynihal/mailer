@@ -3,7 +3,7 @@ import { render } from 'ejs';
 
 import en from '../lang/en';
 
-import mailConfig from '../config/mail.config';
+import getMailConfig from '../config/mail.config';
 
 import { sendMail } from './mailServer';
 
@@ -82,7 +82,7 @@ class Mail {
     return this;
   }
 
-  send() {
+  async send() {
     if (!this.mailNode.to.length) {
       throw new Error(en.error.mail.to);
     }
@@ -90,6 +90,8 @@ class Mail {
     if (!this.mailNode.subject) {
       throw new Error(en.error.mail.subject);
     }
+
+    const mailConfig = await getMailConfig();
 
     if (!this.mailNode.fromAddress) {
       this.from(mailConfig.from, mailConfig.name);
