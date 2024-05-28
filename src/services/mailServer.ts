@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import mailConfig from '../config/mail.config';
+import getMailConfig from '../config/mail.config';
 
 import type { IMailNode } from './mail';
 
@@ -20,6 +20,8 @@ export const createPayload = (payload: IMailNode) => {
 };
 
 export const sendMail = async (payload: IMailNode) => {
+  const mailConfig = await getMailConfig();
+
   return await http.post(mailConfig.mailServer.host, createPayload(payload), {
     headers: {
       'x-api-key': mailConfig.mailServer.password
