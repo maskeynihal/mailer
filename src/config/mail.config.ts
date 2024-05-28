@@ -1,21 +1,26 @@
 import getSecret from '../strategies/secretStrategies/secretStrategy';
+import storageProvider, {
+  MAIL_CONFIG_KEYS
+} from '../providers/awsConfigStorage.provider';
 
 const getMailConfig = async () => {
-  const keys = [
-    'MAIL_FROM_ADDRESS',
-    'MAIL_FROM_NAME',
-    'MAIL_SERVER_HOST',
-    'MAIL_PASSWORD'
-  ];
+  if (!storageProvider.size) {
+    const [from, name, host, password] = await Promise.all(
+      Object.keys(MAIL_CONFIG_KEYS).map(getSecret)
+    );
 
-  const [from, name, host, password] = await Promise.all(keys.map(getSecret));
+    storageProvider.set(MAIL_CONFIG_KEYS.MAIL_FROM_ADDRESS, from);
+    storageProvider.set(MAIL_CONFIG_KEYS.MAIL_FROM_NAME, name);
+    storageProvider.set(MAIL_CONFIG_KEYS.MAIL_SERVER_HOST, host);
+    storageProvider.set(MAIL_CONFIG_KEYS.MAIL_PASSWORD, password);
+  }
 
   const mailConfig = {
-    from,
-    name,
+    from: storageProvider.get(MAIL_CONFIG_KEYS.MAIL_FROM_ADDRESS),
+    name: storageProvider.get(MAIL_CONFIG_KEYS.MAIL_FROM_NAME),
     mailServer: {
-      host,
-      password
+      host: storageProvider.get(MAIL_CONFIG_KEYS.MAIL_SERVER_HOST),
+      password: storageProvider.get(MAIL_CONFIG_KEYS.MAIL_PASSWORD)
     }
   };
 
