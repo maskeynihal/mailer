@@ -24,7 +24,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.1",
     "prettier": "^3.2.5",
-    "rimraf": "^3.0.2",
+    "rimraf": "^5.0.7",
     "typescript": "^5.4.5"
   },
   "lint-staged": {
