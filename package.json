@@ -40,7 +40,7 @@
     "registry": "https://npm.pkg.github.com"
   },
   "dependencies": {
-    "@aws-sdk/client-secrets-manager": "^3.583.0",
+    "@aws-sdk/client-secrets-manager": "^3.609.0",
     "axios": "^1.7.2",
     "ejs": "^3.1.10"
   }
