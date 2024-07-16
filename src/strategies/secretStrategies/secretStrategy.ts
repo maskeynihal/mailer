@@ -5,7 +5,7 @@ import type { IMailerSecretKey, IMailerSecretKeys } from './secrets';
 async function getSecret(
   key: IMailerSecretKey
 ): Promise<IMailerSecretKeys[IMailerSecretKey]> {
-  const awsSecret = AwsSecret.getSecrets(key);
+  const awsSecret = await AwsSecret.getSecrets(key);
 
   if (awsSecret) {
     return awsSecret;
